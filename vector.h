@@ -1,14 +1,14 @@
 #include <cmath>
-#include <string>
-#include <iostream>
+#include <sstream>
 
 class Vector {
     const int _dim;
-    double _arr[];
+    double *_arr;
 
 public:
     Vector (int dim, double arr[] = nullptr);
-    Vector (Vector& vec);
+    Vector (const Vector& vec);
+    Vector (const Vector&& vec);
     ~Vector ();
 
     Vector zero_vec (int dim);
@@ -22,7 +22,7 @@ public:
     double& operator[] (int ind);
     const double& operator[] (int ind) const;
 
-    std::string print() const;
+    std::ostringstream to_string() const;
 
     friend Vector operator+ (const Vector& vec1, const Vector& vec2);
     friend Vector operator- (const Vector& vec1, const Vector& vec2);
