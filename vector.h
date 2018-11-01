@@ -1,31 +1,46 @@
 #include <cmath>
-#include <sstream>
+#include <string>
 
 class Vector {
-    const int _dim;
+    const unsigned int _dim;
     double *_arr;
+    static constexpr double epsilon = 0.001;
 
 public:
-    Vector (int dim, double arr[] = nullptr);
+    explicit Vector (unsigned int dim, double arr[] = nullptr);
     Vector (const Vector& vec);
     Vector (const Vector&& vec);
     ~Vector ();
+    
+    Vector (double) = delete;
+    operator double () = delete;
 
-    Vector zero_vec (int dim);
-    Vector unit_vec (int dim, int ind = 0);
+    static Vector zero_vec (unsigned int dim);
+    static Vector unit_vec (unsigned int dim, unsigned int ind = 0);
+    
+    unsigned int dim () const;
+    
     Vector add (const Vector& vec) const;
     Vector subtract (const Vector& vec) const;
     Vector multiply_scalar (const double alpha) const;
-    double multiply_vector (const Vector& vec) const;
-    double norm () const;
+    double dot_product (const Vector& vec) const;
+    bool is_equal (const Vector& vec) const;
     
-    double& operator[] (int ind);
-    const double& operator[] (int ind) const;
+    double norm () const;
+    Vector normalize () const;
+    
+    std::string to_string () const;
 
-    std::ostringstream to_string() const;
+    double& operator[] (unsigned int ind);
+    const double& operator[] (unsigned int ind) const;
+    Vector& operator= (const Vector& vec);
+    Vector operator-() const;
 
+    friend double angle (const Vector& vec1, const Vector& vec2);
     friend Vector operator+ (const Vector& vec1, const Vector& vec2);
     friend Vector operator- (const Vector& vec1, const Vector& vec2);
     friend Vector operator* (double alpha, const Vector& vec);
-    friend Vector operator* (const Vector& vec1, const Vector& vec2);
+    friend double operator* (const Vector& vec1, const Vector& vec2);
+    friend bool operator== (const Vector& vec1, const Vector& vec2);
+    friend bool operator!= (const Vector& vec1, const Vector& vec2);
 };
