@@ -135,6 +135,10 @@ bool Vector::is_equal (const Vector& vec) const {
 }
 
 Vector& Vector::operator= (const Vector& vec) {
+    if (this == &vec) {
+        return *this;
+    }
+    
     if (_dim != vec._dim) {
         throw std::length_error ("Vector length is fixed");
     }
