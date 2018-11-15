@@ -1,3 +1,6 @@
+#ifndef VECTOR_H 
+#define VECTOR_H
+
 #include <cmath>
 #include <string>
 
@@ -44,3 +47,5 @@ public:
     friend bool operator== (const Vector& vec1, const Vector& vec2);
     friend bool operator!= (const Vector& vec1, const Vector& vec2);
 };
+
+#endif /* VECTOR_H */
